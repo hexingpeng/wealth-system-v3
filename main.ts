@@ -1168,6 +1168,10 @@ async function handler(request: Request): Promise<Response> {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
+        'Cache-Control': 'public, max-age=300',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-Content-Type-Options': 'nosniff',
+        'Connection': 'keep-alive'
     });
 
     if (request.method === 'OPTIONS') {
@@ -1181,6 +1185,9 @@ async function handler(request: Request): Promise<Response> {
                 headers: {
                     'Content-Type': 'text/html; charset=utf-8',
                     'Access-Control-Allow-Origin': '*',
+                    'Cache-Control': 'public, max-age=300',
+                    'X-Frame-Options': 'SAMEORIGIN',
+                    'Connection': 'keep-alive'
                 },
             });
         }
