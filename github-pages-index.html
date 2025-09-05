@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>财富产品推荐系统 - GitHub Pages版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .alert {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #721c24;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255,154,158,0.3);
+        }
+        
+        .alert h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .alert p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .section-content {
+            padding: 30px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-top: 3px solid #667eea;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .sample-products {
+            margin-top: 30px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .product-detail {
+            padding: 8px 12px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        .product-return {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .risk-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .risk-low {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .risk-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .alternatives {
+            margin-top: 40px;
+        }
+        
+        .alternatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .alternative-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79,172,254,0.3);
+        }
+        
+        .alternative-card:hover {
+            transform: translateY(-5px);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .alternative-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .alternative-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .alternative-desc {
+            font-size: 0.95em;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .alternatives-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>✨ 财富产品推荐系统 2.0 🧠</h1>
+        <p class="subtitle">智能推荐 · 实时分析 · 精准投资</p>
+        <div class="badge">GitHub Pages 静态展示版</div>
+    </div>
+    
+    <div class="container">
+        <div class="alert">
+            <h2>🚀 完整功能版本访问说明</h2>
+            <p><strong>当前版本为静态展示页面</strong>，展示系统界面和功能特性</p>
+            <p>如需完整交互功能，请访问服务器版本或本地运行环境</p>
+            <p>本页面支持全球无障碍访问，无需VPN</p>
+        </div>
+        
+        <!-- 功能特性 -->
+        <div class="demo-section">
+            <div class="section-header">
+                <h2 class="section-title">🎯 核心功能</h2>
+            </div>
+            <div class="section-content">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">智能推荐系统</div>
+                        <div class="feature-desc">基于用户风险偏好和投资目标，智能匹配最适合的理财产品，提供个性化推荐话术</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-title">实时市场分析</div>
+                        <div class="feature-desc">每日更新市场热度分析，追踪各类金融产品表现，提供专业投资建议</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">产品筛选搜索</div>
+                        <div class="feature-desc">多维度筛选功能，支持按类型、风险、收益率快速查找理想产品</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📰</div>
+                        <div class="feature-title">金融资讯聚合</div>
+                        <div class="feature-desc">整合权威财经媒体资讯，实时更新市场动态和政策解读</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-title">专业推荐话术</div>
+                        <div class="feature-desc">为每款产品生成专业的销售话术和卖点分析，提升客户沟通效果</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">高性能架构</div>
+                        <div class="feature-desc">现代化技术栈，响应式设计，支持PC和移动设备无缝访问</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 系统数据统计 -->
+        <div class="demo-section">
+            <div class="section-header">
+                <h2 class="section-title">📊 系统数据概览</h2>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">理财产品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">产品类型</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">45+</div>
+                        <div class="stat-label">高收益产品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">实时更新</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 产品示例 -->
+        <div class="demo-section">
+            <div class="section-header">
+                <h2 class="section-title">💰 产品展示样例</h2>
+            </div>
+            <div class="section-content">
+                <p style="color: #666; margin-bottom: 20px;">以下为系统界面和产品数据展示示例</p>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-name">🏦 招银理财 - 日日鑫T+0</div>
+                        <div class="product-details">
+                            <div class="product-detail">类型: <strong>货币型</strong></div>
+                            <div class="product-detail">收益: <span class="product-return">2.85%</span></div>
+                            <div class="product-detail">期限: <strong>随时</strong></div>
+                            <div class="product-detail">风险: <span class="risk-badge risk-low">低</span></div>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em;">✨ 灵活便民，当日起息，适合短期资金管理</div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-name">💎 中银理财 - 稳富固收</div>
+                        <div class="product-details">
+                            <div class="product-detail">类型: <strong>固收类</strong></div>
+                            <div class="product-detail">收益: <span class="product-return">4.2%</span></div>
+                            <div class="product-detail">期限: <strong>365天</strong></div>
+                            <div class="product-detail">风险: <span class="risk-badge risk-medium">中等</span></div>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em;">🎯 稳健投资首选，收益相对稳定</div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-name">🚀 工银理财 - 鑫得利</div>
+                        <div class="product-details">
+                            <div class="product-detail">类型: <strong>混合型</strong></div>
+                            <div class="product-detail">收益: <span class="product-return">5.8%</span></div>
+                            <div class="product-detail">期限: <strong>540天</strong></div>
+                            <div class="product-detail">风险: <span class="risk-badge risk-medium">中等</span></div>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em;">📈 追求较高收益的平衡型选择</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 完整版本访问方式 -->
+        <div class="demo-section alternatives">
+            <div class="section-header">
+                <h2 class="section-title">🌟 完整功能版本访问</h2>
+            </div>
+            <div class="section-content">
+                <p style="color: #666; margin-bottom: 20px; font-size: 1.1em;">选择以下任一方式体验完整的交互功能：</p>
+                
+                <div class="alternatives-grid">
+                    <div class="alternative-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="alternative-icon">💻</div>
+                        <div class="alternative-title">本地运行</div>
+                        <div class="alternative-desc">下载源码到本地<br>运行 node server.js<br>访问 localhost:3000</div>
+                    </div>
+                    
+                    <div class="alternative-card" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                        <div class="alternative-icon">☁️</div>
+                        <div class="alternative-title">云端部署</div>
+                        <div class="alternative-desc">部署到 Vercel/Netlify<br>或其他云平台<br>获得完整服务</div>
+                    </div>
+                    
+                    <div class="alternative-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <div class="alternative-icon">🔧</div>
+                        <div class="alternative-title">技术架构</div>
+                        <div class="alternative-desc">Node.js + Express<br>SQLite 数据库<br>响应式前端设计</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 12px; border-left: 4px solid #0ea5e9;">
+                    <h3 style="color: #0c4a6e; margin-bottom: 10px;">💡 开发者说明</h3>
+                    <p style="color: #0c4a6e; line-height: 1.6;">
+                        本系统采用现代化技术架构，支持产品数据实时更新、智能推荐算法、专业话术生成等功能。
+                        静态版本主要用于功能展示，完整版本需要服务器环境支持数据库操作和API调用。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2024 财富产品推荐系统 | 智能投资，专业服务</p>
+        <p style="margin-top: 8px; opacity: 0.8; font-size: 0.9em;">GitHub Pages 静态展示版 - 全球无障碍访问</p>
+    </div>
+    
+    <script>
+        // 页面加载完成动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加淡入动画
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 统计数字动画
+            animateCounters();
+        });
+        
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                if (target.includes('+')) {
+                    const number = parseInt(target.replace('+', ''));
+                    animateNumber(counter, 0, number, '+');
+                } else if (target.includes('/')) {
+                    // 24/7 不需要动画
+                    return;
+                }
+            });
+        }
+        
+        function animateNumber(element, start, end, suffix = '') {
+            const duration = 2000;
+            const startTime = performance.now();
+            
+            function updateNumber(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * end);
+                element.textContent = current + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            
+            requestAnimationFrame(updateNumber);
+        }
+    </script>
+</body>
+</html>
