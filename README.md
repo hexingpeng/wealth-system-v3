@@ -9,15 +9,15 @@
 ### 🦕 Deno Deploy 云端部署（推荐）
 1. Fork 本仓库到您的 GitHub 账户
 2. 访问 [Deno Deploy](https://dash.deno.com)
-3. 连接 GitHub 仓库，选择 `main-stable.ts` 作为入口文件
+3. 连接 GitHub 仓库，选择 `main.ts` 作为入口文件
 4. 部署完成！
 
 ### 💻 本地开发
 ```bash
-# 安装 Deno
-deno run --allow-net main-stable.ts
-# 或使用传统 Node.js 方式
-npm install && npm start
+# 使用 Deno 运行
+deno run --allow-net main.ts
+# 或使用 Node.js 版本（本地开发）
+node server.js
 ```
 
 访问：https://your-project.deno.dev 或 http://localhost:8888
