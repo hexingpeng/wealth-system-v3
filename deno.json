@@ -7,5 +7,11 @@
     "target": "es2022",
     "lib": ["es2022", "dom"],
     "strict": true
+  },
+  "deploy": {
+    "project": "wealth-system",
+    "entrypoint": "main.ts",
+    "exclude": ["node_modules", ".git", "*.log"],
+    "regions": ["gcp-asia-northeast1", "gcp-asia-southeast1"]
   }
 }
